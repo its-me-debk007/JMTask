@@ -8,6 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -18,9 +20,30 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit(): ApiService = Retrofit.Builder()
+    fun providesInterceptor() : Interceptor= Interceptor {chain ->
+        val originalReq = chain.request()
+        val modifiedReq = originalReq.newBuilder()
+            .url(originalReq.url().newBuilder()
+                .addQueryParameter("api_key", BuildConfig.BASE_URL)
+                .build()
+            )
+            .build()
+
+        chain.proceed(modifiedReq)
+    }
+
+    @Provides
+    @Singleton
+    fun providesOkHttpClient(interceptor: Interceptor): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(interceptor)
+        .build()
+
+    @Provides
+    @Singleton
+    fun providesRetrofit(okHttpClient: OkHttpClient): ApiService = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
+        .client(okHttpClient)
         .build()
         .create(ApiService::class.java)
 
