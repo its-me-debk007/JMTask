@@ -1,6 +1,5 @@
 package com.example.jmtask.repository
 
-import android.util.Log
 import com.example.jmtask.model.Result
 import com.example.jmtask.network.ApiService
 import com.example.jmtask.room.MovieDao
@@ -27,11 +26,9 @@ class RepositoryImpl @Inject constructor(
     }.catch { e ->
 
         if (e.message?.length!! > 7 && e.message?.substring(0, 22) == "Unable to resolve host") {
-            Log.d("RETRO", "No internet")
             emit(ApiState.Success(data = movieDao.getMovies()))
-        }
-
-        else emit(ApiState.Error(msg = e.message.toString()))
+        } else
+            emit(ApiState.Error(msg = e.message.toString()))
     }
 
     override fun searchMovies(query: String): Flow<ApiState<List<Result>>> = flow {
