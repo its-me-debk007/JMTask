@@ -6,9 +6,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.jmtask.R
 import com.example.jmtask.databinding.FragmentLandingBinding
 import com.example.jmtask.ui.viewmodel.JMViewModel
@@ -41,8 +40,9 @@ class LandingFragment : Fragment(R.layout.fragment_landing) {
     }
 
     private suspend fun getResp() {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.getData().collectLatest {
+        viewModel.getMovies()
+            .flowWithLifecycle(lifecycle)
+            .collectLatest {
                 withContext(Dispatchers.Main) {
                     when (it) {
                         is ApiState.Loading -> {
@@ -51,16 +51,15 @@ class LandingFragment : Fragment(R.layout.fragment_landing) {
 
                         is ApiState.Error -> {
                             Toast.makeText(context, it.errorMsg, Toast.LENGTH_SHORT).show()
+                            Log.d("RETRO", it.errorMsg.toString())
                         }
 
                         is ApiState.Success -> {
                             Log.d("RETRO", it.data!!.toString())
-
                         }
                     }
                 }
             }
-        }
     }
 
     override fun onDestroyView() {

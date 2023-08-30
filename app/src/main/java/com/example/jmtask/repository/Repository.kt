@@ -6,5 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    fun getData(): Flow<ApiState<MoviesDTO>>
+    fun getMovies(): Flow<ApiState<MoviesDTO>>
+    fun searchMovies(query: String): Flow<ApiState<MoviesDTO>>
 }

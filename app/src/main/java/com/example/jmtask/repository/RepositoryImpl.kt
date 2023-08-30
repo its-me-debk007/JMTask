@@ -10,10 +10,19 @@ import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(private val apiService: ApiService) : Repository {
 
-    override fun getData(): Flow<ApiState<MoviesDTO>> = flow {
+    override fun getMovies(): Flow<ApiState<MoviesDTO>> = flow {
         emit(ApiState.Loading())
 
-        emit(ApiState.Success(data = apiService.getData()))
+        emit(ApiState.Success(data = apiService.getMovies()))
+
+    }.catch { e ->
+        emit(ApiState.Error(msg = e.message.toString()))
+    }
+
+    override fun searchMovies(query: String): Flow<ApiState<MoviesDTO>> = flow {
+        emit(ApiState.Loading())
+
+        emit(ApiState.Success(data = apiService.searchMovies(query)))
 
     }.catch { e ->
         emit(ApiState.Error(msg = e.message.toString()))

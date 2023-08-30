@@ -1,5 +1,6 @@
 package com.example.jmtask.di
 
+import android.util.Log
 import com.example.jmtask.BuildConfig
 import com.example.jmtask.network.ApiService
 import com.example.jmtask.repository.Repository
@@ -24,10 +25,12 @@ object NetworkModule {
         val originalReq = chain.request()
         val modifiedReq = originalReq.newBuilder()
             .url(originalReq.url().newBuilder()
-                .addQueryParameter("api_key", BuildConfig.BASE_URL)
+                .addQueryParameter("api_key", BuildConfig.API_KEY)
                 .build()
             )
             .build()
+
+        Log.d("RETRO", modifiedReq.toString())
 
         chain.proceed(modifiedReq)
     }

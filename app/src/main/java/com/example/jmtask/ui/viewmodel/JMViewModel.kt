@@ -14,8 +14,15 @@ import javax.inject.Inject
 @HiltViewModel
 class JMViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    fun getData(): StateFlow<ApiState<MoviesDTO>> =
-        repository.getData().stateIn(
+    fun getMovies(): StateFlow<ApiState<MoviesDTO>> =
+        repository.getMovies().stateIn(
+            scope = viewModelScope,
+            initialValue = ApiState.Loading(),
+            started = SharingStarted.WhileSubscribed(5000)
+        )
+
+    fun searchMovies(query: String): StateFlow<ApiState<MoviesDTO>> =
+        repository.searchMovies(query).stateIn(
             scope = viewModelScope,
             initialValue = ApiState.Loading(),
             started = SharingStarted.WhileSubscribed(5000)
