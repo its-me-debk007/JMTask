@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="background">#2D2D2D</color>
+    <color name="vote_color">#f2f2f3</color>
+    <color name="secondary_text_color">#acb3b9</color>
+    <color name="action_bar_color">#393939</color>
+    <color name="line_color">#4a4e51</color>
+    <color name="question_color">#33a7ff</color>
+    <color name="description_color">#cfd2d6</color>
+    <color name="tag_background_color">#3d4951</color>
+    <color name="tag_text_color">#9cc1db</color>
+    <color name="views_color">#9cc1db</color>
+    <color name="search_bar_background">#202020</color>
+</resources>

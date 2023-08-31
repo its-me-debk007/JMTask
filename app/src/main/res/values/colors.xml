@@ -2,4 +2,20 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#FFFFFF</color>
+    <color name="vote_color">#0c0d0e</color>
+    <color name="secondary_text_color">#6a737c</color>
+    <color name="action_bar_color">#393939</color>
+    <color name="line_color">#d6d9dc</color>
+    <color name="question_color">#0074cc</color>
+    <color name="description_color">#3b4045</color>
+    <color name="tag_background_color">#e1ecf4</color>
+    <color name="tag_text_color">#39739d</color>
+    <color name="views_color">#6a737c</color>
+    <color name="search_bar_background">#EFEFEF</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="translucent_black">#80000000</color>
+    <color name="bottom_nav_background">#00FF00</color>
+    <color name="bottom_nav_icon">#FFFF00</color>
+
 </resources>

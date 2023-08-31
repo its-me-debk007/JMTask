@@ -36,7 +36,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
 
-        lifecycleScope.launch(Dispatchers.IO) { getResp("get hard") }
+        lifecycleScope.launch(Dispatchers.IO) { getResp("man from toronto") }
     }
 
     private suspend fun getResp(query: String) {

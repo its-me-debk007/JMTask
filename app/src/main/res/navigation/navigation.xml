@@ -2,12 +2,28 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
-    app:startDestination="@id/landingFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/landingFragment"
-        android:name="com.example.jmtask.ui.fragment.LandingFragment"
-        android:label="LandingFragment" />
+        android:id="@+id/homeFragment"
+        android:name="com.example.jmtask.ui.fragment.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.jmtask.ui.fragment.DetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="movie"
+            app:argType="com.example.jmtask.model.Result" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.example.jmtask.ui.fragment.FavouritesFragment"
+        android:label="FavouritesFragment" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.jmtask.ui.fragment.SearchFragment"

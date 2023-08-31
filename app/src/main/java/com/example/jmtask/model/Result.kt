@@ -1,9 +1,12 @@
 package com.example.jmtask.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "results")
+@Parcelize
 data class Result(
     val adult: Boolean,
     val backdrop_path: String?,
@@ -18,4 +21,4 @@ data class Result(
     val video: Boolean,
     val vote_average: Double,
     val vote_count: Int
-)
+): Parcelable

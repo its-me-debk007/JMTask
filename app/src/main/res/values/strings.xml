@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">JMTask</string>
     <string name="retry">RETRY</string>
+    <string name="no_internet">Oops! There is no active Internet Connection\nPlease try again</string>
+    <string name="movie_poster">Movie poster</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="wishlist">Wishlist</string>
 </resources>

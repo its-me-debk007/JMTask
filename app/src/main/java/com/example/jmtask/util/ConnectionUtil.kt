@@ -8,12 +8,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onStart
 
-class ConnectivityStateManager(context: Context) {
+object ConnectivityStateManager {
 
-    private val connectivityManager: ConnectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private lateinit var connectivityManager: ConnectivityManager
 
-    fun observeNetworkState(): Flow<Boolean> {
+    fun observeNetworkState(context: Context): Flow<Boolean> {
+
+        connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE)
+                as ConnectivityManager
+
         val isConnectedFlow = MutableStateFlow(isConnected())
 
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
