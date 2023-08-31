@@ -9,4 +9,5 @@
     <string name="discover">Discover</string>
     <string name="overview">Overview</string>
     <string name="favourites">Favourites</string>
+    <string name="description">JMTask is a free movie app that allows you to search for movies, view their details, and add them to your watchlist. The app has a simple and intuitive interface, making it easy to find the movies you\'re looking for.\n\nJMTask is a great way to find new movies to watch. It\'s free to use and available on Android devices.\n\nThe app is built using Kotlin + XML, using MVVM Architecture!</string>
 </resources>
