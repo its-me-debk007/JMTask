@@ -1,8 +1,9 @@
 package com.example.jmtask.repository
 
+import android.util.Log
 import com.example.jmtask.model.Result
 import com.example.jmtask.network.ApiService
-import com.example.jmtask.room.MovieDao
+import com.example.jmtask.room.RemoteMovieDao
 import com.example.jmtask.util.ApiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -11,7 +12,7 @@ import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val movieDao: MovieDao
+    private val remoteMovieDao: RemoteMovieDao
 ) : Repository {
 
     override fun getMovies(): Flow<ApiState<List<Result>>> = flow {
@@ -19,14 +20,18 @@ class RepositoryImpl @Inject constructor(
 
         val moviesDTO = apiService.getMovies()
 
-        movieDao.insertMovies(moviesDTO.results)
+        Log.d("RETRO", moviesDTO.toString())
+
+        remoteMovieDao.insertMovies(moviesDTO.results)
 
         emit(ApiState.Success(data = moviesDTO.results))
 
     }.catch { e ->
 
+        Log.d("RETRO", e.message.toString())
+
         if (e.message?.length!! > 7 && e.message?.substring(0, 22) == "Unable to resolve host") {
-            emit(ApiState.Success(data = movieDao.getMovies()))
+            emit(ApiState.Success(data = remoteMovieDao.getMovies()))
         } else
             emit(ApiState.Error(msg = e.message.toString()))
     }

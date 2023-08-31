@@ -13,7 +13,6 @@
     <color name="tag_background_color">#3d4951</color>
     <color name="tag_text_color">#9cc1db</color>
     <color name="views_color">#9cc1db</color>
-    <color name="search_bar_background">#202020</color>
     <color name="bottom_nav_background">@color/color_on_background</color>
     <color name="bottom_nav_icon">#12CDD9</color>
 </resources>

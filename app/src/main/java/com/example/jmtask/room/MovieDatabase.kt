@@ -7,5 +7,7 @@ import com.example.jmtask.model.Result
 @Database(entities = [Result::class], version = 1)
 abstract class MovieDatabase : RoomDatabase() {
 
-    abstract fun movieDao(): MovieDao
+    abstract fun remoteMovieDao(): RemoteMovieDao
+
+    abstract fun favouritesMovieDao(): FavouritesMovieDao
 }

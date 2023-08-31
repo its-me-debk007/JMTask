@@ -7,11 +7,11 @@ import androidx.room.Query
 import com.example.jmtask.model.Result
 
 @Dao
-interface MovieDao {
+interface FavouritesMovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies(movies: List<Result>)
+    suspend fun insertMovie(movies: Result)
 
-    @Query("SELECT * FROM results")
+    @Query("SELECT * FROM movies")
     suspend fun getMovies(): List<Result>
 }

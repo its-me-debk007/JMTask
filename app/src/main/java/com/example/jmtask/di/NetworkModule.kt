@@ -1,14 +1,13 @@
 package com.example.jmtask.di
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import com.example.jmtask.BuildConfig
 import com.example.jmtask.network.ApiService
 import com.example.jmtask.repository.Repository
 import com.example.jmtask.repository.RepositoryImpl
-import com.example.jmtask.room.MovieDao
 import com.example.jmtask.room.MovieDatabase
+import com.example.jmtask.room.RemoteMovieDao
 import com.example.jmtask.util.MOVIE_DB
 import dagger.Module
 import dagger.Provides
@@ -37,8 +36,6 @@ object NetworkModule {
             )
             .build()
 
-        Log.d("RETRO", modifiedReq.toString())
-
         chain.proceed(modifiedReq)
     }
 
@@ -59,8 +56,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRepository(apiService: ApiService, movieDao: MovieDao): Repository =
-        RepositoryImpl(apiService, movieDao)
+    fun providesRepository(apiService: ApiService, remoteMovieDao: RemoteMovieDao): Repository =
+        RepositoryImpl(apiService, remoteMovieDao)
 
     @Provides
     @Singleton
@@ -72,6 +69,7 @@ object NetworkModule {
         ).build()
 
     @Provides
-    fun providesMovieDao(movieDatabase: MovieDatabase): MovieDao = movieDatabase.movieDao()
+    fun providesRemoteMovieDao(movieDatabase: MovieDatabase): RemoteMovieDao =
+        movieDatabase.remoteMovieDao()
 
 }

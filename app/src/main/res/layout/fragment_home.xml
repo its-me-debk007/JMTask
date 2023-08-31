@@ -13,7 +13,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Discover"
+        android:text="@string/discover"
         android:textSize="20sp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"

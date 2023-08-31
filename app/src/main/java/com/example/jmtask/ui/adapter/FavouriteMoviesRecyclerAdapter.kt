@@ -8,17 +8,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.jmtask.BuildConfig
 import com.example.jmtask.R
-import com.example.jmtask.databinding.ItemMovieBinding
+import com.example.jmtask.databinding.ItemMovie2Binding
 import com.example.jmtask.model.Result
 
-class MovieRecyclerAdapter(
-    private val data: List<Result>,
+class FavouriteMoviesRecyclerAdapter(
+    private var data: List<Result>,
     private val context: Context,
     private val onClick: (Result) -> Unit
 
-) : RecyclerView.Adapter<MovieRecyclerAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<FavouriteMoviesRecyclerAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(val binding: ItemMovieBinding) :
+    inner class MyViewHolder(val binding: ItemMovie2Binding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -28,7 +28,7 @@ class MovieRecyclerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            ItemMovieBinding.inflate(
+            ItemMovie2Binding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -41,16 +41,20 @@ class MovieRecyclerAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.apply {
             Glide.with(context)
-                .load(BuildConfig.IMG_BASE_URL + "/w300" + data[position].poster_path)
+                .load(BuildConfig.IMG_BASE_URL + "/w500" + data[position].backdrop_path)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(img)
 
             title.text = data[position].title
-            releaseDate.text = data[position].release_date.substring(0, 4)
-            language.text = "(${data[position].original_language})"
+            overview.text = data[position].overview
             rating.text = "${data[position].vote_average.toString().substring(0, 3)} ⭐"
         }
+    }
+
+    fun updateData(newData: List<Result>) {
+        data = newData
+        notifyDataSetChanged()
     }
 }
