@@ -10,6 +10,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.jmtask.BuildConfig
 import com.example.jmtask.R
 import com.example.jmtask.databinding.FragmentDetailBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -40,7 +43,27 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         _binding = FragmentDetailBinding.bind(view)
         Log.d("NavController", args.movie.toString())
 
+        Glide.with(requireContext())
+            .load(BuildConfig.IMG_BASE_URL + "/w500" + args.movie.poster_path)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(binding.img)
 
+        Glide.with(requireContext())
+            .load(BuildConfig.IMG_BASE_URL + "/w500" + args.movie.backdrop_path)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(binding.backgroundImg)
+
+        binding.apply {
+            heading.text = args.movie.original_title
+            overview.text = args.movie.overview
+            originalLanguage.text = args.movie.original_language
+            englishTitle.text = args.movie.title
+            rating.text = "${args.movie.vote_average.toString().substring(0, 3)} ⭐"
+        }
     }
 
     private fun changeBottomNavVisibility(isVisible: Boolean) {
