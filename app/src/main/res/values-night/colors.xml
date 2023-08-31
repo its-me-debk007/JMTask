@@ -2,7 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="background">#2D2D2D</color>
+    <color name="background">#1f1d2b</color>
+    <color name="color_on_background">#2F2D3B</color>
     <color name="vote_color">#f2f2f3</color>
     <color name="secondary_text_color">#acb3b9</color>
     <color name="action_bar_color">#393939</color>
@@ -13,4 +14,6 @@
     <color name="tag_text_color">#9cc1db</color>
     <color name="views_color">#9cc1db</color>
     <color name="search_bar_background">#202020</color>
+    <color name="bottom_nav_background">@color/color_on_background</color>
+    <color name="bottom_nav_icon">#12CDD9</color>
 </resources>

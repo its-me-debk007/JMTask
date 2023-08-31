@@ -49,8 +49,7 @@ class MovieRecyclerAdapter(
 
             title.text = data[position].title
             releaseDate.text = data[position].release_date
-//            discount.text = "${data[position].discountPercentage}% off"
-//            price.text = "MRP ₹${data[position].price}"
+            language.text = "(${data[position].original_language})"
             rating.text = "${data[position].vote_average} ⭐"
         }
     }

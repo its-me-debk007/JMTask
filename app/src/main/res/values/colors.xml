@@ -2,20 +2,21 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#FFFFFF</color>
-    <color name="vote_color">#0c0d0e</color>
-    <color name="secondary_text_color">#6a737c</color>
-    <color name="action_bar_color">#393939</color>
-    <color name="line_color">#d6d9dc</color>
-    <color name="question_color">#0074cc</color>
-    <color name="description_color">#3b4045</color>
-    <color name="tag_background_color">#e1ecf4</color>
-    <color name="tag_text_color">#39739d</color>
-    <color name="views_color">#6a737c</color>
-    <color name="search_bar_background">#EFEFEF</color>
-    <color name="colorTransparent">#00000000</color>
     <color name="translucent_black">#80000000</color>
-    <color name="bottom_nav_background">#00FF00</color>
-    <color name="bottom_nav_icon">#FFFF00</color>
+    <color name="grey">#909090</color>
+    <color name="background">#1f1d2b</color>
+    <color name="color_on_background">#2F2D3B</color>
+    <color name="vote_color">#f2f2f3</color>
+    <color name="secondary_text_color">#acb3b9</color>
+    <color name="action_bar_color">#393939</color>
+    <color name="line_color">#4a4e51</color>
+    <color name="question_color">#33a7ff</color>
+    <color name="description_color">#cfd2d6</color>
+    <color name="tag_background_color">#3d4951</color>
+    <color name="tag_text_color">#9cc1db</color>
+    <color name="views_color">#9cc1db</color>
+    <color name="search_bar_background">#202020</color>
+    <color name="bottom_nav_background">@color/color_on_background</color>
+    <color name="bottom_nav_icon">#12CDD9</color>
 
 </resources>

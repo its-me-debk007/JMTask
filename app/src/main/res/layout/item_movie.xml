@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="220dp"
             android:contentDescription="@string/movie_poster"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,38 +35,61 @@
             android:fontFamily="@font/poppins_bold"
             android:paddingHorizontal="6dp"
             android:paddingVertical="4dp"
-            tools:text="4.6 ⭐"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4.6 ⭐" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/gradient_black"
+            app:layout_constraintBottom_toBottomOf="@id/img" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:ellipsize="end"
+            android:fontFamily="@font/poppins_semibold"
             android:maxLines="2"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/release_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img"
             tools:text="Washing Powder" />
 
         <TextView
             android:id="@+id/release_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-4dp"
+            android:layout_marginEnd="6dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:textColor="@color/white"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/title"
+            app:layout_constraintBottom_toBottomOf="@id/language"
+            app:layout_constraintEnd_toStartOf="@+id/language"
             app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="Surf Excel" />
+
+        <TextView
+            android:id="@+id/language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="(en)" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
