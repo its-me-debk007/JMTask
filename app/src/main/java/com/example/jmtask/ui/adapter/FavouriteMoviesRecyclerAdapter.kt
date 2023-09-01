@@ -11,6 +11,7 @@ import com.example.jmtask.R
 import com.example.jmtask.databinding.ItemMovie2Binding
 import com.example.jmtask.model.Result
 
+
 class FavouriteMoviesRecyclerAdapter(
     private var data: List<Result>,
     private val context: Context,
@@ -18,12 +19,20 @@ class FavouriteMoviesRecyclerAdapter(
 
 ) : RecyclerView.Adapter<FavouriteMoviesRecyclerAdapter.MyViewHolder>() {
 
+    private lateinit var recyclerView: RecyclerView
+
     inner class MyViewHolder(val binding: ItemMovie2Binding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.cardView.setOnClickListener { onClick(data[adapterPosition]) }
         }
+
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        this.recyclerView = recyclerView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -56,5 +65,10 @@ class FavouriteMoviesRecyclerAdapter(
     fun updateData(newData: List<Result>) {
         data = newData
         notifyDataSetChanged()
+    }
+
+    fun removeData(newData: List<Result>, position: Int) {
+        data = newData
+        notifyItemRemoved(position)
     }
 }

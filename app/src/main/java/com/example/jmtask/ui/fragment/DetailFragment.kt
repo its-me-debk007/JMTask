@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.activity.addCallback
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -25,6 +25,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val bottomNavView by lazy { activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView) }
 
     private val args by navArgs<DetailFragmentArgs>()
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +33,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         changeBottomNavVisibility(isVisible = false)
 
-        requireActivity().onBackPressedDispatcher.addCallback {
-            changeBottomNavVisibility(isVisible = true)
-            findNavController().navigateUp()
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                changeBottomNavVisibility(isVisible = true)
+                findNavController().navigateUp()
+            }
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,5 +91,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        onBackPressedCallback.remove()
     }
 }
