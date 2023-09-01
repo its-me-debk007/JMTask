@@ -41,6 +41,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
 
+        lifecycleScope.launch(Dispatchers.IO) { getResp("harry potter") }
+
         binding.searchBtn.setOnClickListener { executeSearch() }
 
         binding.textInputEditText.setOnEditorActionListener { _, _, _ ->
