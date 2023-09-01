@@ -3,7 +3,6 @@ package com.example.jmtask.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,7 +41,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
 
-//        Log.d("retro", moviesRecyclerAdapter.toString())
+//        Log.d("retro", binding.movieRecyclerView.isVisible.toString())
 
 //        lifecycleScope.launch(Dispatchers.IO) { getResp("harry potter") }
 
@@ -74,8 +73,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         }
 
                         is ApiState.Error -> {
-                            Toast.makeText(context, it.errorMsg, Toast.LENGTH_SHORT).show()
-                            Log.d("RETRO", it.errorMsg.toString())
+                            binding.progressBar.isVisible = false
+                            binding.movieRecyclerView.isVisible = false
+                            binding.errorTextView.isVisible = true
+                            binding.errorTextView.text = it.errorMsg
                         }
 
                         is ApiState.Success -> {
@@ -88,11 +89,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                                 return@withContext
                             }
 
+                            binding.errorTextView.isVisible = false
+                            binding.movieRecyclerView.isVisible = true
+                            Log.d("retro", binding.movieRecyclerView.isVisible.toString())
+
                             moviesRecyclerAdapter?.updateData(it.data) ?: run {
 
                                 moviesRecyclerAdapter = FavouriteMoviesRecyclerAdapter(
-                                    it.data,
-                                    requireContext()
+                                    it.data, requireContext()
                                 ) { movie ->
                                     val action =
                                         SearchFragmentDirections.actionSearchFragmentToDetailFragment(
@@ -103,10 +107,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
                                 binding.movieRecyclerView.adapter = moviesRecyclerAdapter
                             }
-
-                            binding.errorTextView.isVisible = false
-                            binding.movieRecyclerView.isVisible = true
-                            Log.d("RETRO", "ending statement")
                         }
                     }
                 }

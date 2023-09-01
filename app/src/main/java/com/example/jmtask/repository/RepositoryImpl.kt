@@ -42,6 +42,9 @@ class RepositoryImpl @Inject constructor(
         emit(ApiState.Success(data = apiService.searchMovies(query).results))
 
     }.catch { e ->
-        emit(ApiState.Error(msg = e.message.toString()))
+        val msg = if (e.message?.length!! > 7 && e.message?.substring(0, 22) == "Unable to resolve host")
+            "No Internet Connection!" else e.message.toString()
+
+        emit(ApiState.Error(msg))
     }
 }
