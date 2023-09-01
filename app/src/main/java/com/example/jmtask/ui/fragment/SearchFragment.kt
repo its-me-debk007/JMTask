@@ -41,10 +41,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
 
-//        Log.d("retro", binding.movieRecyclerView.isVisible.toString())
-
-//        lifecycleScope.launch(Dispatchers.IO) { getResp("harry potter") }
-
         binding.searchBtn.setOnClickListener { executeSearch() }
 
         binding.textInputEditText.setOnEditorActionListener { _, _, _ ->
@@ -91,7 +87,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
                             binding.errorTextView.isVisible = false
                             binding.movieRecyclerView.isVisible = true
-                            Log.d("retro", binding.movieRecyclerView.isVisible.toString())
+                            Log.d("retro", moviesRecyclerAdapter.toString())
 
                             moviesRecyclerAdapter?.updateData(it.data) ?: run {
 
@@ -104,9 +100,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                                         )
                                     findNavController().navigate(action)
                                 }
-
-                                binding.movieRecyclerView.adapter = moviesRecyclerAdapter
                             }
+
+                            binding.movieRecyclerView.adapter = moviesRecyclerAdapter
                         }
                     }
                 }
