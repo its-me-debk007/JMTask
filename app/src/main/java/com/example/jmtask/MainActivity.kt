@@ -4,11 +4,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.jmtask.databinding.ActivityMainBinding
+import com.example.jmtask.util.ConnectivityStateManager
+import com.example.jmtask.util.changeBottomNavVisibility
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -28,5 +34,17 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.findNavController()
 
         setupWithNavController(binding.bottomNavigationView, navController)
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            ConnectivityStateManager.observeNetworkState(this@MainActivity)
+                .collect { isInternetAvailable ->
+                    binding.noInternetTxt.isVisible = !isInternetAvailable
+                    changeBottomNavVisibility(
+                        isVisible = !isInternetAvailable,
+                        binding.noInternetTxt,
+                        this@MainActivity
+                    )
+                }
+        }
     }
 }

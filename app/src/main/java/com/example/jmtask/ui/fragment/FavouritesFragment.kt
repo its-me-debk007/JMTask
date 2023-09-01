@@ -2,20 +2,21 @@ package com.example.jmtask.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jmtask.R
-import com.example.jmtask.databinding.FragmentFavouritesBinding
+import com.example.jmtask.databinding.FragmentSearchBinding
 import com.example.jmtask.ui.adapter.FavouriteMoviesRecyclerAdapter
 import com.example.jmtask.util.favouritesList
 import com.google.android.material.transition.MaterialSharedAxis
 
-class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
+class FavouritesFragment : Fragment(R.layout.fragment_search) {
 
-    private var _binding: FragmentFavouritesBinding? = null
-    private val binding: FragmentFavouritesBinding get() = _binding!!
+    private var _binding: FragmentSearchBinding? = null
+    private val binding: FragmentSearchBinding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,11 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentFavouritesBinding.bind(view)
+        _binding = FragmentSearchBinding.bind(view)
+        binding.textInputLayout.isVisible = false
+        binding.searchBtn.isVisible = false
+        binding.heading.text = "Favourites"
+        binding.movieRecyclerView.isVisible = true
 
         val adapter = FavouriteMoviesRecyclerAdapter(
             favouritesList,

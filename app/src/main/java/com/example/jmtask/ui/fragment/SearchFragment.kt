@@ -42,6 +42,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
 
+//        Log.d("retro", moviesRecyclerAdapter.toString())
+
 //        lifecycleScope.launch(Dispatchers.IO) { getResp("harry potter") }
 
         binding.searchBtn.setOnClickListener { executeSearch() }
@@ -104,6 +106,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
                             binding.errorTextView.isVisible = false
                             binding.movieRecyclerView.isVisible = true
+                            Log.d("RETRO", "ending statement")
                         }
                     }
                 }

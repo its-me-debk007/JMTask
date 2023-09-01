@@ -14,9 +14,6 @@ import com.example.jmtask.databinding.FragmentHomeBinding
 import com.example.jmtask.ui.adapter.MovieRecyclerAdapter
 import com.example.jmtask.ui.viewmodel.JMViewModel
 import com.example.jmtask.util.ApiState
-import com.example.jmtask.util.ConnectivityStateManager
-import com.example.jmtask.util.NO_INTERNET
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -30,9 +27,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding get() = _binding!!
     private val viewModel: JMViewModel by viewModels()
-    private val snackbar: Snackbar by lazy {
-        Snackbar.make(binding.root, NO_INTERNET, Snackbar.LENGTH_INDEFINITE)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,16 +38,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            launch(Dispatchers.Main) {
-                ConnectivityStateManager.observeNetworkState(requireContext())
-                    .collect { isInternetAvailable ->
-                        if (isInternetAvailable) snackbar.dismiss() else showSnackbar()
-                    }
-            }
-
-            getResp()
-        }
+        lifecycleScope.launch(Dispatchers.IO) { getResp() }
 
     }
 
@@ -93,18 +78,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
                 }
             }
-    }
-
-    private fun showSnackbar() {
-        snackbar.apply {
-//            setAction(R.string.retry) {
-//                dismiss()
-//                lifecycleScope.launch(Dispatchers.IO) { getResp() }
-//            }
-            animationMode = Snackbar.ANIMATION_MODE_SLIDE
-
-            show()
-        }
     }
 
     override fun onDestroyView() {

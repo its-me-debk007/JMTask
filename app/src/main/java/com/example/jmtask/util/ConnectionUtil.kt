@@ -36,7 +36,6 @@ object ConnectivityStateManager {
 
         return isConnectedFlow
             .onStart { emit(isConnected()) }
-//            .asStateFlow()
     }
 
     private fun isConnected(): Boolean {

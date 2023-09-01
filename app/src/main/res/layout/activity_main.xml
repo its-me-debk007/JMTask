@@ -23,12 +23,25 @@
         android:layout_height="56dp"
         android:layout_marginBottom="0dp"
         android:background="@drawable/bottom_nav_border"
-        app:elevation="6dp"
         android:visibility="gone"
+        app:elevation="6dp"
         app:itemIconTint="@color/bottom_nav_icon_tint"
         app:itemTextColor="@color/bottom_nav_icon"
         app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/no_internet_txt"
         app:menu="@menu/bottom_nav_menu" />
+
+    <TextView
+        android:id="@+id/no_internet_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingVertical="4dp"
+        android:visibility="gone"
+        android:text="@string/no_internet_connection"
+        android:textAlignment="center"
+        android:textColor="@color/bottom_nav_icon"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

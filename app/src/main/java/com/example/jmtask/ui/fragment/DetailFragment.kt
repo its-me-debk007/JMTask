@@ -3,10 +3,7 @@ package com.example.jmtask.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,6 +12,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.jmtask.BuildConfig
 import com.example.jmtask.R
 import com.example.jmtask.databinding.FragmentDetailBinding
+import com.example.jmtask.util.changeBottomNavVisibility
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.transition.MaterialSharedAxis
 
@@ -22,7 +20,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding: FragmentDetailBinding get() = _binding!!
-    private val bottomNavView by lazy { activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView) }
+    private val bottomNavView by lazy { requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView) }
 
     private val args by navArgs<DetailFragmentArgs>()
     private lateinit var onBackPressedCallback: OnBackPressedCallback
@@ -31,11 +29,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         super.onCreate(savedInstanceState)
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
-        changeBottomNavVisibility(isVisible = false)
+        changeBottomNavVisibility(isVisible = false, bottomNavView, requireContext())
 
         onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                changeBottomNavVisibility(isVisible = true)
+                changeBottomNavVisibility(isVisible = true, bottomNavView, requireContext())
                 findNavController().navigateUp()
             }
         }
@@ -69,23 +67,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             englishTitle.text = args.movie.title
             rating.text = "${args.movie.vote_average.toString().substring(0, 3)} ⭐"
         }
-    }
-
-    private fun changeBottomNavVisibility(isVisible: Boolean) {
-        val animResource = if (isVisible) R.anim.slide_up else R.anim.slide_down
-        val slideDownAnim = AnimationUtils.loadAnimation(requireContext(), animResource)
-        bottomNavView?.startAnimation(slideDownAnim)
-
-        slideDownAnim.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(p0: Animation?) {}
-
-            override fun onAnimationEnd(p0: Animation?) {
-                bottomNavView?.isVisible = isVisible
-            }
-
-            override fun onAnimationRepeat(p0: Animation?) {}
-
-        })
     }
 
     override fun onDestroyView() {
